@@ -9,38 +9,200 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AppRouteImport } from './routes/app'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppIndexRouteImport } from './routes/app/index'
+import { Route as AppMappingsRouteImport } from './routes/app/mappings'
+import { Route as AppLogsRouteImport } from './routes/app/logs'
+import { Route as AppImportsRouteImport } from './routes/app/imports'
+import { Route as AppDatasetsRouteImport } from './routes/app/datasets'
+import { Route as AppBusinessObjectsRouteImport } from './routes/app/business-objects'
+import { Route as AppMappingsBuilderRouteImport } from './routes/app/mappings.builder'
+import { Route as AppAdminUsersRouteImport } from './routes/app/admin.users'
+import { Route as AppAdminTenantsRouteImport } from './routes/app/admin.tenants'
+import { Route as AppAdminSettingsRouteImport } from './routes/app/admin.settings'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMappingsRoute = AppMappingsRouteImport.update({
+  id: '/mappings',
+  path: '/mappings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLogsRoute = AppLogsRouteImport.update({
+  id: '/logs',
+  path: '/logs',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppImportsRoute = AppImportsRouteImport.update({
+  id: '/imports',
+  path: '/imports',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDatasetsRoute = AppDatasetsRouteImport.update({
+  id: '/datasets',
+  path: '/datasets',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppBusinessObjectsRoute = AppBusinessObjectsRouteImport.update({
+  id: '/business-objects',
+  path: '/business-objects',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMappingsBuilderRoute = AppMappingsBuilderRouteImport.update({
+  id: '/builder',
+  path: '/builder',
+  getParentRoute: () => AppMappingsRoute,
+} as any)
+const AppAdminUsersRoute = AppAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminTenantsRoute = AppAdminTenantsRouteImport.update({
+  id: '/admin/tenants',
+  path: '/admin/tenants',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppAdminSettingsRoute = AppAdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
+  '/app/business-objects': typeof AppBusinessObjectsRoute
+  '/app/datasets': typeof AppDatasetsRoute
+  '/app/imports': typeof AppImportsRoute
+  '/app/logs': typeof AppLogsRoute
+  '/app/mappings': typeof AppMappingsRouteWithChildren
+  '/app/': typeof AppIndexRoute
+  '/app/admin/settings': typeof AppAdminSettingsRoute
+  '/app/admin/tenants': typeof AppAdminTenantsRoute
+  '/app/admin/users': typeof AppAdminUsersRoute
+  '/app/mappings/builder': typeof AppMappingsBuilderRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/app/business-objects': typeof AppBusinessObjectsRoute
+  '/app/datasets': typeof AppDatasetsRoute
+  '/app/imports': typeof AppImportsRoute
+  '/app/logs': typeof AppLogsRoute
+  '/app/mappings': typeof AppMappingsRouteWithChildren
+  '/app': typeof AppIndexRoute
+  '/app/admin/settings': typeof AppAdminSettingsRoute
+  '/app/admin/tenants': typeof AppAdminTenantsRoute
+  '/app/admin/users': typeof AppAdminUsersRoute
+  '/app/mappings/builder': typeof AppMappingsBuilderRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/login': typeof LoginRoute
+  '/app/business-objects': typeof AppBusinessObjectsRoute
+  '/app/datasets': typeof AppDatasetsRoute
+  '/app/imports': typeof AppImportsRoute
+  '/app/logs': typeof AppLogsRoute
+  '/app/mappings': typeof AppMappingsRouteWithChildren
+  '/app/': typeof AppIndexRoute
+  '/app/admin/settings': typeof AppAdminSettingsRoute
+  '/app/admin/tenants': typeof AppAdminTenantsRoute
+  '/app/admin/users': typeof AppAdminUsersRoute
+  '/app/mappings/builder': typeof AppMappingsBuilderRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/login'
+    | '/app/business-objects'
+    | '/app/datasets'
+    | '/app/imports'
+    | '/app/logs'
+    | '/app/mappings'
+    | '/app/'
+    | '/app/admin/settings'
+    | '/app/admin/tenants'
+    | '/app/admin/users'
+    | '/app/mappings/builder'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/app/business-objects'
+    | '/app/datasets'
+    | '/app/imports'
+    | '/app/logs'
+    | '/app/mappings'
+    | '/app'
+    | '/app/admin/settings'
+    | '/app/admin/tenants'
+    | '/app/admin/users'
+    | '/app/mappings/builder'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/login'
+    | '/app/business-objects'
+    | '/app/datasets'
+    | '/app/imports'
+    | '/app/logs'
+    | '/app/mappings'
+    | '/app/'
+    | '/app/admin/settings'
+    | '/app/admin/tenants'
+    | '/app/admin/users'
+    | '/app/mappings/builder'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +210,121 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/mappings': {
+      id: '/app/mappings'
+      path: '/mappings'
+      fullPath: '/app/mappings'
+      preLoaderRoute: typeof AppMappingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/logs': {
+      id: '/app/logs'
+      path: '/logs'
+      fullPath: '/app/logs'
+      preLoaderRoute: typeof AppLogsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/imports': {
+      id: '/app/imports'
+      path: '/imports'
+      fullPath: '/app/imports'
+      preLoaderRoute: typeof AppImportsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/datasets': {
+      id: '/app/datasets'
+      path: '/datasets'
+      fullPath: '/app/datasets'
+      preLoaderRoute: typeof AppDatasetsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/business-objects': {
+      id: '/app/business-objects'
+      path: '/business-objects'
+      fullPath: '/app/business-objects'
+      preLoaderRoute: typeof AppBusinessObjectsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/mappings/builder': {
+      id: '/app/mappings/builder'
+      path: '/builder'
+      fullPath: '/app/mappings/builder'
+      preLoaderRoute: typeof AppMappingsBuilderRouteImport
+      parentRoute: typeof AppMappingsRoute
+    }
+    '/app/admin/users': {
+      id: '/app/admin/users'
+      path: '/admin/users'
+      fullPath: '/app/admin/users'
+      preLoaderRoute: typeof AppAdminUsersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/admin/tenants': {
+      id: '/app/admin/tenants'
+      path: '/admin/tenants'
+      fullPath: '/app/admin/tenants'
+      preLoaderRoute: typeof AppAdminTenantsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/admin/settings': {
+      id: '/app/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/app/admin/settings'
+      preLoaderRoute: typeof AppAdminSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppMappingsRouteChildren {
+  AppMappingsBuilderRoute: typeof AppMappingsBuilderRoute
+}
+
+const AppMappingsRouteChildren: AppMappingsRouteChildren = {
+  AppMappingsBuilderRoute: AppMappingsBuilderRoute,
+}
+
+const AppMappingsRouteWithChildren = AppMappingsRoute._addFileChildren(
+  AppMappingsRouteChildren,
+)
+
+interface AppRouteChildren {
+  AppBusinessObjectsRoute: typeof AppBusinessObjectsRoute
+  AppDatasetsRoute: typeof AppDatasetsRoute
+  AppImportsRoute: typeof AppImportsRoute
+  AppLogsRoute: typeof AppLogsRoute
+  AppMappingsRoute: typeof AppMappingsRouteWithChildren
+  AppIndexRoute: typeof AppIndexRoute
+  AppAdminSettingsRoute: typeof AppAdminSettingsRoute
+  AppAdminTenantsRoute: typeof AppAdminTenantsRoute
+  AppAdminUsersRoute: typeof AppAdminUsersRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppBusinessObjectsRoute: AppBusinessObjectsRoute,
+  AppDatasetsRoute: AppDatasetsRoute,
+  AppImportsRoute: AppImportsRoute,
+  AppLogsRoute: AppLogsRoute,
+  AppMappingsRoute: AppMappingsRouteWithChildren,
+  AppIndexRoute: AppIndexRoute,
+  AppAdminSettingsRoute: AppAdminSettingsRoute,
+  AppAdminTenantsRoute: AppAdminTenantsRoute,
+  AppAdminUsersRoute: AppAdminUsersRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
