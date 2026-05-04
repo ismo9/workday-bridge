@@ -18,7 +18,9 @@ import { Route as AppLogsRouteImport } from './routes/app/logs'
 import { Route as AppImportsRouteImport } from './routes/app/imports'
 import { Route as AppDatasetsRouteImport } from './routes/app/datasets'
 import { Route as AppBusinessObjectsRouteImport } from './routes/app/business-objects'
+import { Route as AppMappingsWizardRouteImport } from './routes/app/mappings.wizard'
 import { Route as AppMappingsBuilderRouteImport } from './routes/app/mappings.builder'
+import { Route as AppBusinessObjectsNewRouteImport } from './routes/app/business-objects.new'
 import { Route as AppAdminUsersRouteImport } from './routes/app/admin.users'
 import { Route as AppAdminTenantsRouteImport } from './routes/app/admin.tenants'
 import { Route as AppAdminSettingsRouteImport } from './routes/app/admin.settings'
@@ -68,10 +70,20 @@ const AppBusinessObjectsRoute = AppBusinessObjectsRouteImport.update({
   path: '/business-objects',
   getParentRoute: () => AppRoute,
 } as any)
+const AppMappingsWizardRoute = AppMappingsWizardRouteImport.update({
+  id: '/wizard',
+  path: '/wizard',
+  getParentRoute: () => AppMappingsRoute,
+} as any)
 const AppMappingsBuilderRoute = AppMappingsBuilderRouteImport.update({
   id: '/builder',
   path: '/builder',
   getParentRoute: () => AppMappingsRoute,
+} as any)
+const AppBusinessObjectsNewRoute = AppBusinessObjectsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AppBusinessObjectsRoute,
 } as any)
 const AppAdminUsersRoute = AppAdminUsersRouteImport.update({
   id: '/admin/users',
@@ -93,7 +105,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/app/business-objects': typeof AppBusinessObjectsRoute
+  '/app/business-objects': typeof AppBusinessObjectsRouteWithChildren
   '/app/datasets': typeof AppDatasetsRoute
   '/app/imports': typeof AppImportsRoute
   '/app/logs': typeof AppLogsRoute
@@ -102,12 +114,14 @@ export interface FileRoutesByFullPath {
   '/app/admin/settings': typeof AppAdminSettingsRoute
   '/app/admin/tenants': typeof AppAdminTenantsRoute
   '/app/admin/users': typeof AppAdminUsersRoute
+  '/app/business-objects/new': typeof AppBusinessObjectsNewRoute
   '/app/mappings/builder': typeof AppMappingsBuilderRoute
+  '/app/mappings/wizard': typeof AppMappingsWizardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
-  '/app/business-objects': typeof AppBusinessObjectsRoute
+  '/app/business-objects': typeof AppBusinessObjectsRouteWithChildren
   '/app/datasets': typeof AppDatasetsRoute
   '/app/imports': typeof AppImportsRoute
   '/app/logs': typeof AppLogsRoute
@@ -116,14 +130,16 @@ export interface FileRoutesByTo {
   '/app/admin/settings': typeof AppAdminSettingsRoute
   '/app/admin/tenants': typeof AppAdminTenantsRoute
   '/app/admin/users': typeof AppAdminUsersRoute
+  '/app/business-objects/new': typeof AppBusinessObjectsNewRoute
   '/app/mappings/builder': typeof AppMappingsBuilderRoute
+  '/app/mappings/wizard': typeof AppMappingsWizardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
   '/login': typeof LoginRoute
-  '/app/business-objects': typeof AppBusinessObjectsRoute
+  '/app/business-objects': typeof AppBusinessObjectsRouteWithChildren
   '/app/datasets': typeof AppDatasetsRoute
   '/app/imports': typeof AppImportsRoute
   '/app/logs': typeof AppLogsRoute
@@ -132,7 +148,9 @@ export interface FileRoutesById {
   '/app/admin/settings': typeof AppAdminSettingsRoute
   '/app/admin/tenants': typeof AppAdminTenantsRoute
   '/app/admin/users': typeof AppAdminUsersRoute
+  '/app/business-objects/new': typeof AppBusinessObjectsNewRoute
   '/app/mappings/builder': typeof AppMappingsBuilderRoute
+  '/app/mappings/wizard': typeof AppMappingsWizardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -149,7 +167,9 @@ export interface FileRouteTypes {
     | '/app/admin/settings'
     | '/app/admin/tenants'
     | '/app/admin/users'
+    | '/app/business-objects/new'
     | '/app/mappings/builder'
+    | '/app/mappings/wizard'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -163,7 +183,9 @@ export interface FileRouteTypes {
     | '/app/admin/settings'
     | '/app/admin/tenants'
     | '/app/admin/users'
+    | '/app/business-objects/new'
     | '/app/mappings/builder'
+    | '/app/mappings/wizard'
   id:
     | '__root__'
     | '/'
@@ -178,7 +200,9 @@ export interface FileRouteTypes {
     | '/app/admin/settings'
     | '/app/admin/tenants'
     | '/app/admin/users'
+    | '/app/business-objects/new'
     | '/app/mappings/builder'
+    | '/app/mappings/wizard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -252,12 +276,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppBusinessObjectsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/mappings/wizard': {
+      id: '/app/mappings/wizard'
+      path: '/wizard'
+      fullPath: '/app/mappings/wizard'
+      preLoaderRoute: typeof AppMappingsWizardRouteImport
+      parentRoute: typeof AppMappingsRoute
+    }
     '/app/mappings/builder': {
       id: '/app/mappings/builder'
       path: '/builder'
       fullPath: '/app/mappings/builder'
       preLoaderRoute: typeof AppMappingsBuilderRouteImport
       parentRoute: typeof AppMappingsRoute
+    }
+    '/app/business-objects/new': {
+      id: '/app/business-objects/new'
+      path: '/new'
+      fullPath: '/app/business-objects/new'
+      preLoaderRoute: typeof AppBusinessObjectsNewRouteImport
+      parentRoute: typeof AppBusinessObjectsRoute
     }
     '/app/admin/users': {
       id: '/app/admin/users'
@@ -283,12 +321,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AppBusinessObjectsRouteChildren {
+  AppBusinessObjectsNewRoute: typeof AppBusinessObjectsNewRoute
+}
+
+const AppBusinessObjectsRouteChildren: AppBusinessObjectsRouteChildren = {
+  AppBusinessObjectsNewRoute: AppBusinessObjectsNewRoute,
+}
+
+const AppBusinessObjectsRouteWithChildren =
+  AppBusinessObjectsRoute._addFileChildren(AppBusinessObjectsRouteChildren)
+
 interface AppMappingsRouteChildren {
   AppMappingsBuilderRoute: typeof AppMappingsBuilderRoute
+  AppMappingsWizardRoute: typeof AppMappingsWizardRoute
 }
 
 const AppMappingsRouteChildren: AppMappingsRouteChildren = {
   AppMappingsBuilderRoute: AppMappingsBuilderRoute,
+  AppMappingsWizardRoute: AppMappingsWizardRoute,
 }
 
 const AppMappingsRouteWithChildren = AppMappingsRoute._addFileChildren(
@@ -296,7 +347,7 @@ const AppMappingsRouteWithChildren = AppMappingsRoute._addFileChildren(
 )
 
 interface AppRouteChildren {
-  AppBusinessObjectsRoute: typeof AppBusinessObjectsRoute
+  AppBusinessObjectsRoute: typeof AppBusinessObjectsRouteWithChildren
   AppDatasetsRoute: typeof AppDatasetsRoute
   AppImportsRoute: typeof AppImportsRoute
   AppLogsRoute: typeof AppLogsRoute
@@ -308,7 +359,7 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
-  AppBusinessObjectsRoute: AppBusinessObjectsRoute,
+  AppBusinessObjectsRoute: AppBusinessObjectsRouteWithChildren,
   AppDatasetsRoute: AppDatasetsRoute,
   AppImportsRoute: AppImportsRoute,
   AppLogsRoute: AppLogsRoute,

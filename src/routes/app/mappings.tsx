@@ -23,7 +23,10 @@ function M() {
         title="Mappings"
         description="Reusable rules that transform CSV columns into Workday-ready SOAP payloads."
         actions={
-          <Link to="/app/mappings/builder"><Button className="bg-gradient-primary"><Plus className="size-4" />New mapping</Button></Link>
+          <div className="flex gap-2">
+            <Link to="/app/mappings/builder"><Button variant="outline"><Plus className="size-4" />Quick builder</Button></Link>
+            <Link to="/app/mappings/wizard"><Button className="bg-gradient-primary"><Plus className="size-4" />New mapping (wizard)</Button></Link>
+          </div>
         }
       />
       <div className="flex items-center gap-3 mb-5">

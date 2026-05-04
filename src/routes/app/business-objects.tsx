@@ -1,11 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader } from "@/components/app/PageHeader";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
 import { businessObjects, workdayFields } from "@/lib/mockData";
 import { Boxes, Plus, Search, Settings2, Database, GitMerge } from "lucide-react";
 import { useState } from "react";
@@ -23,21 +21,9 @@ function BO() {
         title="Business Objects"
         description="Workday entities you can migrate. Each object exposes its fields, rules, and reusable mappings."
         actions={
-          <Dialog>
-            <DialogTrigger asChild><Button className="bg-gradient-primary"><Plus className="size-4" />New object</Button></DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Configure new Business Object</DialogTitle>
-                <DialogDescription>Define metadata and Workday fields. Custom fields can be added later.</DialogDescription>
-              </DialogHeader>
-              <div className="space-y-3">
-                <div><Label>Name</Label><Input placeholder="e.g. Positions" /></div>
-                <div><Label>Description</Label><Input placeholder="Short description" /></div>
-                <div><Label>Workday SOAP endpoint</Label><Input placeholder="Human_Resources/v40" /></div>
-              </div>
-              <DialogFooter><Button className="bg-gradient-primary">Create</Button></DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <Link to="/app/business-objects/new">
+            <Button className="bg-gradient-primary"><Plus className="size-4" />New object</Button>
+          </Link>
         }
       />
 
